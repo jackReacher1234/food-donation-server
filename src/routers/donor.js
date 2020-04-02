@@ -58,12 +58,19 @@ router.get("/:_id", async (req, res) => {
 
 router.post("/:_id", async (req, res) => {
   const { _id } = req.params;
+  let query = {};
+  if (req.query.engaged === "true") {
+    query = { engaged: true };
+  } else if (req.query.engaged === "false") {
+    query = { engaged: false };
+  } else if (req.query.collected === "true") {
+    query = { collected: true };
+  } else if (req.query.collected === "false") {
+    query = { collected: false };
+  }
 
   try {
-    await Donor.findByIdAndUpdate({ _id }, { engaged: true }, function(
-      err,
-      result
-    ) {
+    await Donor.findByIdAndUpdate({ _id }, query, function(err, result) {
       if (err) {
         res.json({ err });
       } else {
@@ -71,7 +78,7 @@ router.post("/:_id", async (req, res) => {
       }
     });
   } catch (e) {
-    res.json({ message: e });
+    res.json({ message: e.message });
   }
 });
 

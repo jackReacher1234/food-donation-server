@@ -26,11 +26,19 @@ router.get("/:_id", async (req, res) => {
 router.post("/:_id", async (req, res) => {
   const { _id } = req.params;
 
+  let query = {};
+  if (req.query.engaged === "true") {
+    query = { engaged: true };
+  } else if (req.query.engaged === "false") {
+    query = { engaged: false };
+  } else if (req.query.donated === "true") {
+    query = { donated: true };
+  } else if (req.query.donated === "false") {
+    query = { donated: false };
+  }
+
   try {
-    await Deserved.findByIdAndUpdate({ _id }, { engaged: true }, function(
-      err,
-      result
-    ) {
+    await Deserved.findByIdAndUpdate({ _id }, query, function(err, result) {
       if (err) {
         res.json({ err });
       } else {

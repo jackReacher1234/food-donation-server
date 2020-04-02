@@ -28,28 +28,32 @@ const carrierSchema = new Schema({
   engagedDonors: [
     {
       donorId: {
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: "Donor"
       }
     }
   ],
   collectedDonors: [
     {
       donorId: {
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: "Donor"
       }
     }
   ],
   engagedDeserveds: [
     {
       deservedId: {
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: "Deserved"
       }
     }
   ],
   donatedDeserveds: [
     {
       deservedId: {
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: "Deserved"
       }
     }
   ]

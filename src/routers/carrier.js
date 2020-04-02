@@ -24,16 +24,16 @@ router.post("/", async (req, res) => {
 router.post("/engagedonor", async (req, res) => {
   try {
     const { carrierId, donorId } = req.body;
-    let carrier = await Carrier.findById(ObjectID(carrierId));
+    let carrier = await Carrier.findById(new ObjectID(carrierId));
     carrier.engagedDonors = [
       ...carrier.engagedDonors,
-      { donorId: ObjectID(donorId) }
+      { donorId: new ObjectID(donorId) }
     ];
     carrier = await carrier.save();
     res.json({ carrier });
   } catch (e) {
     console.log(e);
-    res.json({ message: e });
+    res.json({ message: e.message });
   }
 });
 
@@ -101,6 +101,16 @@ router.post("/donatedeserved", async (req, res) => {
     res.json({ carrier });
   } catch (e) {
     res.json({ message: e.message });
+  }
+});
+
+router.post("/mydetails", async (req, res) => {
+  const { myid } = req.body;
+  try {
+    const carrier = Carrier.findById(ObjectID(myid));
+    res.json({ carrier });
+  } catch (error) {
+    res.json({ message: error.message });
   }
 });
 module.exports = router;
