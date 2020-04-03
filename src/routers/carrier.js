@@ -107,10 +107,11 @@ router.post("/donatedeserved", async (req, res) => {
 router.post("/mydetails", async (req, res) => {
   const { myid } = req.body;
   try {
-    const carrier = Carrier.findById(ObjectID(myid));
+    const carrier = await Carrier.findById(ObjectID(myid));
     res.json({ carrier });
   } catch (error) {
     res.json({ message: error.message });
   }
 });
+
 module.exports = router;
