@@ -107,7 +107,15 @@ router.post("/donatedeserved", async (req, res) => {
 router.post("/mydetails", async (req, res) => {
   const { myid } = req.body;
   try {
-    const carrier = await Carrier.findById(ObjectID(myid));
+    const carrier = await Carrier.findById(ObjectID(myid))
+      .populate("engagedDonors.donorId collectedDonors.donorId", {
+        _id: 1,
+        landmark: 1
+      })
+      .populate("engagedDeserveds.deservedId donatedDeserveds.deservedId", {
+        _id: 1,
+        deservedLandmark: 1
+      });
     res.json({ carrier });
   } catch (error) {
     res.json({ message: error.message });
