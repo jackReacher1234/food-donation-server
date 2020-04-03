@@ -110,11 +110,15 @@ router.post("/mydetails", async (req, res) => {
     const carrier = await Carrier.findById(ObjectID(myid))
       .populate("engagedDonors.donorId collectedDonors.donorId", {
         _id: 1,
-        landmark: 1
+        landmark: 1,
+        engaged: 1,
+        collected: 1
       })
       .populate("engagedDeserveds.deservedId donatedDeserveds.deservedId", {
         _id: 1,
-        deservedLandmark: 1
+        deservedLandmark: 1,
+        engaged: 1,
+        donated: 1
       });
     res.json({ carrier });
   } catch (error) {
