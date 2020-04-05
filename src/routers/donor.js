@@ -2,6 +2,7 @@ const { Router } = require("express");
 const Donor = require("./../models/donor");
 const Food = require("./../models/food");
 const router = Router();
+const data = require("./../data/data.json");
 
 router.post("/", async (req, res) => {
   const {
@@ -12,7 +13,7 @@ router.post("/", async (req, res) => {
     district,
     taluk,
     lsg,
-    donationDetails
+    donationDetails,
   } = req.body;
 
   try {
@@ -24,7 +25,7 @@ router.post("/", async (req, res) => {
       district,
       taluk,
       lsg,
-      donationDetails
+      donationDetails,
     }).save();
     res.json({ message: "Succesfully donated", donor });
   } catch (e) {
@@ -35,6 +36,19 @@ router.post("/", async (req, res) => {
 router.get("/foods", async (req, res) => {
   const foods = await Food.find({});
   res.json({ foods: foods[0].foodsAvailable });
+});
+
+router.get("/", async (req, res) => {
+  try {
+    const donors = await Donor.find({});
+    res.json({ donors });
+  } catch (e) {
+    res.json({ message: e });
+  }
+});
+
+router.get("/data", async (req, res) => {
+  res.json({ data });
 });
 
 router.get("/", async (req, res) => {
@@ -80,7 +94,7 @@ router.post("/:_id", async (req, res) => {
   }
 
   try {
-    await Donor.findByIdAndUpdate({ _id }, query, function(err, result) {
+    await Donor.findByIdAndUpdate({ _id }, query, function (err, result) {
       if (err) {
         res.json({ err });
       } else {

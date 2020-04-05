@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
       carrierPhone,
       district,
       taluk,
-      lsg
+      lsg,
     }).save();
     res.json({ carrier });
   } catch (error) {
@@ -27,13 +27,13 @@ router.post("/engagedonor", async (req, res) => {
     let carrier = await Carrier.findById(new ObjectID(carrierId));
     carrier.engagedDonors = [
       ...carrier.engagedDonors,
-      { donorId: new ObjectID(donorId) }
+      { donorId: ObjectID(donorId) },
     ];
     carrier = await carrier.save();
     res.json({ carrier });
   } catch (e) {
     console.log(e);
-    res.json({ message: e.message });
+    res.json({ message: e });
   }
 });
 
@@ -43,7 +43,7 @@ router.post("/collectdonor", async (req, res) => {
     const { carrierId, donorId } = req.body;
     let carrier = await Carrier.findById(ObjectID(carrierId));
 
-    const checkArray = carrier.engagedDonors.filter(function(each) {
+    const checkArray = carrier.engagedDonors.filter(function (each) {
       return each.donorId == donorId;
     });
 
@@ -53,7 +53,7 @@ router.post("/collectdonor", async (req, res) => {
 
     carrier.collectedDonors = [
       ...carrier.collectedDonors,
-      { donorId: ObjectID(donorId) }
+      { donorId: ObjectID(donorId) },
     ];
     carrier = await carrier.save();
     res.json({ carrier });
@@ -69,7 +69,7 @@ router.post("/engagedeserved", async (req, res) => {
     let carrier = await Carrier.findById(ObjectID(carrierId));
     carrier.engagedDeserveds = [
       ...carrier.engagedDeserveds,
-      { deservedId: ObjectID(deservedId) }
+      { deservedId: ObjectID(deservedId) },
     ];
     carrier = await carrier.save();
     res.json({ carrier });
@@ -85,9 +85,11 @@ router.post("/donatedeserved", async (req, res) => {
     const { carrierId, deservedId } = req.body;
     let carrier = await Carrier.findById(ObjectID(carrierId));
 
-    const checkArray = carrier.engagedDeserveds.filter(function(each) {
+    const checkArray = carrier.engagedDeserveds.filter(function (each) {
       return each.deservedId == deservedId;
     });
+
+    // console.log(checkArray);
 
     if (checkArray.length === 0) {
       throw new Error("You must be engaged before donating");
@@ -95,7 +97,7 @@ router.post("/donatedeserved", async (req, res) => {
 
     carrier.donatedDeserveds = [
       ...carrier.donatedDeserveds,
-      { deservedId: ObjectID(deservedId) }
+      { deservedId: ObjectID(deservedId) },
     ];
     carrier = await carrier.save();
     res.json({ carrier });
@@ -112,13 +114,13 @@ router.post("/mydetails", async (req, res) => {
         _id: 1,
         landmark: 1,
         engaged: 1,
-        collected: 1
+        collected: 1,
       })
       .populate("engagedDeserveds.deservedId donatedDeserveds.deservedId", {
         _id: 1,
         deservedLandmark: 1,
         engaged: 1,
-        donated: 1
+        donated: 1,
       });
     res.json({ carrier });
   } catch (error) {
