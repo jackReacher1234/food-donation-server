@@ -19,6 +19,9 @@ router.post("/", async (req, res) => {
 
   try {
     const reporter = await new Reporter({
+      district,
+      taluk,
+      lsg,
       reporterName,
       reporterPhone,
     }).save();
