@@ -2,10 +2,17 @@ const { Schema, model } = require("mongoose");
 const validator = require("validator");
 
 const reporterSchema = new Schema({
+  district: {
+    type: String,
+  },
+  taluk: {
+    type: String,
+  },
+  lsg: {
+    type: String,
+  },
   reporterName: {
     type: String,
-    required: true,
-    minlength: 2
   },
   reporterPhone: {
     type: String,
@@ -14,8 +21,8 @@ const reporterSchema = new Schema({
       if (!validator.isMobilePhone(value)) {
         throw new Error("Invalid Phone Number");
       }
-    }
-  }
+    },
+  },
 });
 
 const Reporter = model("Reporter", reporterSchema);

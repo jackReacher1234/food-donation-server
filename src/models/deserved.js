@@ -5,17 +5,17 @@ const deservedSchema = new Schema({
   deservedName: {
     type: String,
     required: true,
-    minlength: 2
+    minlength: 2,
   },
   deservedHouse: {
     type: String,
     required: true,
-    minlength: 1
+    minlength: 1,
   },
   deservedLandmark: {
     type: String,
     required: true,
-    minlength: 3
+    minlength: 3,
   },
   deservedPhone: {
     type: String,
@@ -24,25 +24,25 @@ const deservedSchema = new Schema({
       if (!validator.isMobilePhone(value)) {
         throw new Error("Invalid Phone Number");
       }
-    }
+    },
   },
   deservedNumber: {
     type: String,
-    required: true
+    required: true,
   },
   engaged: {
     type: Boolean,
-    default: false
+    default: false,
   },
   donated: {
     type: Boolean,
-    default: false
+    default: false,
   },
   reportedBy: {
     type: Schema.Types.ObjectId,
     ref: "Reporter",
-    required: true
-  }
+    required: true,
+  },
 });
 
 const Deserved = model("Deserved", deservedSchema);

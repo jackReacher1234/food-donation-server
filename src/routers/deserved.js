@@ -23,6 +23,16 @@ router.get("/:_id", async (req, res) => {
   }
 });
 
+router.post("/myarea", async (req, res) => {
+  const { district, taluk, lsg } = req.body;
+  try {
+    const deserveds = await Deserved.find({}).populate("reportedBy");
+    res.json({ deserveds });
+  } catch (e) {
+    res.json({ message: e });
+  }
+});
+
 router.post("/:_id", async (req, res) => {
   const { _id } = req.params;
 
@@ -38,7 +48,7 @@ router.post("/:_id", async (req, res) => {
   }
 
   try {
-    await Deserved.findByIdAndUpdate({ _id }, query, function(err, result) {
+    await Deserved.findByIdAndUpdate({ _id }, query, function (err, result) {
       if (err) {
         res.json({ err });
       } else {

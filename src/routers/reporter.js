@@ -5,19 +5,25 @@ const Deserved = require("./../models/deserved");
 
 router.post("/", async (req, res) => {
   const {
+    district,
+    taluk,
+    lsg,
     deservedName,
     deservedHouse,
     deservedLandmark,
     deservedPhone,
     deservedNumber,
     reporterName,
-    reporterPhone
+    reporterPhone,
   } = req.body;
 
   try {
     const reporter = await new Reporter({
+      district,
+      taluk,
+      lsg,
       reporterName,
-      reporterPhone
+      reporterPhone,
     }).save();
 
     const deserved = await new Deserved({
@@ -26,7 +32,7 @@ router.post("/", async (req, res) => {
       deservedLandmark,
       deservedPhone,
       deservedNumber,
-      reportedBy: reporter._id
+      reportedBy: reporter._id,
     }).save();
     res.json({ message: "Succesfully Reported", reporter, deserved });
   } catch (e) {
