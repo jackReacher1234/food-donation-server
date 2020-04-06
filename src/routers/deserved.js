@@ -26,7 +26,7 @@ router.get("/:_id", async (req, res) => {
 router.post("/myarea", async (req, res) => {
   const { district, taluk, lsg } = req.body;
   try {
-    const deserveds = await Deserved.find({}).populate("reportedBy");
+    const deserveds = await Deserved.find({ district, taluk, lsg });
     res.json({ deserveds });
   } catch (e) {
     res.json({ message: e });
