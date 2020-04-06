@@ -19,14 +19,14 @@ router.post("/", async (req, res) => {
 
   try {
     const reporter = await new Reporter({
-      district,
-      taluk,
-      lsg,
       reporterName,
       reporterPhone,
     }).save();
 
     const deserved = await new Deserved({
+      district,
+      taluk,
+      lsg,
       deservedName,
       deservedHouse,
       deservedLandmark,

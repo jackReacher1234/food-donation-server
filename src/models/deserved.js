@@ -2,6 +2,15 @@ const { Schema, model } = require("mongoose");
 const validator = require("validator");
 
 const deservedSchema = new Schema({
+  district: {
+    type: String,
+  },
+  taluk: {
+    type: String,
+  },
+  lsg: {
+    type: String,
+  },
   deservedName: {
     type: String,
     required: true,
