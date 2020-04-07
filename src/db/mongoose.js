@@ -5,11 +5,11 @@ mongoose
   .connect(process.env.CONNECTION_STRING1, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   })
   .then(() => {
     console.log("Mongodb connected");
   })
-  .catch(e => {
+  .catch((e) => {
     console.log("Connection failed");
   });
