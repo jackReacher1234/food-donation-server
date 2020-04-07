@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 router.get("/:_id", async (req, res) => {
   const { _id } = req.params;
   try {
-    const deserved = await Deserved.findOne({ _id });
+    const deserved = await Deserved.findOne({ _id }).populate("reportedBy");
 
     res.json({ deserved });
   } catch (e) {
