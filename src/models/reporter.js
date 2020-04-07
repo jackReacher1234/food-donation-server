@@ -18,7 +18,7 @@ const reporterSchema = new Schema({
     type: String,
     required: true,
     validate(value) {
-      if (!validator.isEmail(value)) {
+      if (!validator.isMobilePhone(value)) {
         throw new Error("Invalid Phone Number");
       }
     },
