@@ -61,9 +61,12 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/myarea", async (req, res) => {
+  console.log("CALLED");
+
   const { district, taluk, lsg } = req.body;
   try {
-    const donors = await Donor.find({ district, taluk, lsg });
+    const donors = await Donor.find({ district, taluk });
+    console.log(donors);
     res.json({ donors });
   } catch (e) {
     res.json({ message: e });

@@ -24,9 +24,14 @@ router.get("/:_id", async (req, res) => {
 });
 
 router.post("/myarea", async (req, res) => {
+  console.log("got request");
   const { district, taluk, lsg } = req.body;
+  console.log(district);
+  console.log(taluk);
+  console.log(lsg);
   try {
-    const deserveds = await Deserved.find({ district, taluk, lsg });
+    const deserveds = await Deserved.find({ district, taluk });
+    console.log(deserveds);
     res.json({ deserveds });
   } catch (e) {
     res.json({ message: e });

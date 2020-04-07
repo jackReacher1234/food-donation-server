@@ -4,29 +4,29 @@ const validator = require("validator");
 const foodsSchema = new Schema({
   food: {
     type: String,
-    required: true
+    required: true,
   },
   quantity: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const donorSchema = new Schema({
   name: {
     type: String,
     required: true,
-    minlength: 2
+    minlength: 2,
   },
   house: {
     type: String,
     required: true,
-    minlength: 1
+    minlength: 1,
   },
   landmark: {
     type: String,
     required: true,
-    minlength: 3
+    minlength: 3,
   },
   phone: {
     type: String,
@@ -35,32 +35,32 @@ const donorSchema = new Schema({
       if (!validator.isMobilePhone(value)) {
         throw new Error("Invalid Phone Number");
       }
-    }
+    },
   },
   district: {
     type: String,
     required: true,
-    minlength: 2
+    minlength: 2,
   },
   taluk: {
     type: String,
     required: true,
-    minlength: 2
+    minlength: 2,
   },
   lsg: {
     type: String,
     required: true,
-    minlength: 2
+    minlength: 2,
   },
   donationDetails: [foodsSchema],
   engaged: {
     type: Boolean,
-    default: false
+    default: false,
   },
   collected: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 const Donor = model("Donor", donorSchema);
