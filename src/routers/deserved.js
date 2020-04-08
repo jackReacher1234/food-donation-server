@@ -27,8 +27,7 @@ router.post("/myarea", async (req, res) => {
   const { district, taluk, lsg } = req.body;
 
   try {
-    const deserveds = await Deserved.find({ district, taluk });
-    console.log(deserveds);
+    const deserveds = await Deserved.find({ district, taluk, lsg });
     res.json({ deserveds });
   } catch (e) {
     res.json({ message: e });
