@@ -28,11 +28,6 @@ const deservedSchema = new Schema({
   },
   deservedPhone: {
     type: String,
-    validate(value) {
-      if (!validator.isMobilePhone(value)) {
-        throw new Error("Invalid Phone Number");
-      }
-    },
   },
   deservedNumber: {
     type: String,
